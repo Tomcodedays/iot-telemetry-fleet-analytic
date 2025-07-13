@@ -91,7 +91,10 @@ simulated_interval_minutes = 180  # 3 hours per message
 
 
 Generated Telemetry Schema
-json{
+```
+json
+
+{
   "deviceId": "vehiculo_001",
   "timestamp": 1704110400000,
   "latitude": 40.7128,
@@ -107,13 +110,13 @@ json{
   "engine_rpm": 2800,
   "odometer_km": 45623.45
 }
-
+```
 Vehicle Behavior Patterns
 
-Urban Pattern: 10-60 km/h, 1000-3000 RPM
-Highway Pattern: 80-120 km/h, 2500-4500 RPM
-Mixed Pattern: 20-100 km/h, 1500-4000 RPM
-Anomaly Generation: 5% probability of engine overheating (>120°C) 
+- Urban Pattern: 10-60 km/h, 1000-3000 RPM
+- Highway Pattern: 80-120 km/h, 2500-4500 RPM
+- Mixed Pattern: 20-100 km/h, 1500-4000 RPM
+- Anomaly Generation: 5% probability of engine overheating (>120°C) 
 
 
 ## 🚀 Implementation Guide
@@ -146,24 +149,25 @@ docker run -e IOTHUB_DEVICE_CONNECTION_STRING="your_connection_string" iot-fleet
 
 
 📊 Analytics Capabilities
-Real-time Monitoring
 
-Vehicle Status: Current location, speed, engine health
-Fleet Overview: Active vehicles, alerts, performance metrics
-Anomaly Detection: Engine temperature >90°C, Oil pressure <100kPa
-Geospatial Tracking: Live vehicle positioning
+##Real-time Monitoring
+
+- Vehicle Status: Current location, speed, engine health
+- Fleet Overview: Active vehicles, alerts, performance metrics
+- Anomaly Detection: Engine temperature >90°C, Oil pressure <100kPa
+- Geospatial Tracking: Live vehicle positioning
 
 Historical Analysis
 
-Trend Analysis: Speed patterns by hour of day
-Performance Metrics: P95 engine temperature, fuel efficiency trends
-Behavioral Insights: Urban vs highway driving patterns
-Maintenance Predictions: Based on engine temperature and vibration
+- Trend Analysis: Speed patterns by hour of day
+- Performance Metrics: P95 engine temperature, fuel efficiency trends
+- Behavioral Insights: Urban vs highway driving patterns
+- Maintenance Predictions: Based on engine temperature and vibration
 
 Business Intelligence
 
-KPIs: Average speed, fuel consumption, maintenance alerts
-Dashboards: Real-time Power BI with DirectLake connectivity
+- KPIs: Average speed, fuel consumption, maintenance alerts
+- Dashboards: Real-time Power BI with DirectLake connectivity
 
 
 ## 📊 Results and Visualizations
