@@ -148,23 +148,23 @@ docker run -e IOTHUB_DEVICE_CONNECTION_STRING="your_connection_string" iot-fleet
 3. **Power BI**: Connect via Direct Lake for instant access
 
 
-📊 Analytics Capabilities
+### 📊 Analytics Capabilities
 
-##Real-time Monitoring
+**Real-time Monitoring**
 
 - Vehicle Status: Current location, speed, engine health
 - Fleet Overview: Active vehicles, alerts, performance metrics
 - Anomaly Detection: Engine temperature >90°C, Oil pressure <100kPa
 - Geospatial Tracking: Live vehicle positioning
 
-Historical Analysis
+**Historical Analysis**
 
 - Trend Analysis: Speed patterns by hour of day
 - Performance Metrics: P95 engine temperature, fuel efficiency trends
 - Behavioral Insights: Urban vs highway driving patterns
 - Maintenance Predictions: Based on engine temperature and vibration
 
-Business Intelligence
+**Business Intelligence**
 
 - KPIs: Average speed, fuel consumption, maintenance alerts
 - Dashboards: Real-time Power BI with DirectLake connectivity
@@ -199,7 +199,6 @@ Business Intelligence
 
 ## 📁 Project Structure
 
-
 iot-fleet-monitoring/
 ├── docker/
 │ ├── Dockerfile
@@ -216,8 +215,6 @@ iot-fleet-monitoring/
 │ ├── 01_Bronze_to_Silver_IoT.ipynb
 │ └── 02_Silver_to_Gold_IoT.ipynb
 └── README.md
-
-
 
 ## 🎯 Key Value Proposition
 
