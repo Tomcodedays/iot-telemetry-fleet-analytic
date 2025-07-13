@@ -210,6 +210,4 @@ iot-fleet-monitoring/
 ---
 
 ## 📞 Contact & Support
-- **Email**: [your.email@example.com]
-- **LinkedIn**: [Your LinkedIn Profile]
-- **Issues**: [GitHub Issues Page]
+- **Email**: [brauliofernandeztom@gmail.com]
