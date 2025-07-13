@@ -73,7 +73,6 @@ This project strategically demonstrates enterprise-level data engineering skills
    - Gold Tables:
      - current_vehicle_state_v2 → Latest vehicle status
      - daily_fleet_summary_v2 → Daily KPIs
-     - vehicle_trends_analysis → Hourly pattern insights
 3. **Power BI**: Connect via Direct Lake for instant access
 
 ## 📊 Results and Visualizations
