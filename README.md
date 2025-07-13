@@ -201,8 +201,8 @@ iot-fleet-monitoring/
 │   │   ├── 02_silver_to_gold.py
 ├── fabric-implementation/
 │   └── notebooks/
-│       ├── 01_Bronze_to_Silver_IoT.ipynb
-│       └── 02_Silver_to_Gold_IoT.ipynb
+│       ├── iot_data_processing_bronze_to_silver.py
+│       └── 02_Silver_to_Gold_IoT.py
 └── README.md
 ```
 
