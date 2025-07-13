@@ -1,0 +1,6 @@
+# requirements.txt
+azure-iot-device==2.12.0
+azure-iot-hub==2.6.1
+requests==2.31.0
+python-dotenv==1.0.0
+Faker
