@@ -26,39 +26,14 @@ This project strategically demonstrates enterprise-level data engineering skills
 
 ## 🏗️ Architecture Comparison
 
-### Azure Traditional Architecture
-```
-IoT Device Simulator (Docker) 
-    ↓
-Azure IoT Hub (Data Ingestion)
-    ↓
-Azure Data Lake Storage Gen2 (ADLS Gen2)
-    ├── Bronze Container (Raw AVRO data)
-    ├── Silver Container (Clean Delta Lake data)
-    └── Gold Container (Aggregated analytics)
-    ↓
-Azure Databricks (Spark Processing)
-    ↓
-Power BI (Business Intelligence)
-```
+## Azure Architecture
 
-### Microsoft Fabric Architecture
-```
-IoT Device Simulator (Docker)
-    ↓
-Azure IoT Hub (Data Ingestion)
-    ↓
-Microsoft Fabric Eventstream (Real-time Processing)
-    ↓
-Microsoft Fabric Lakehouse (Delta Lake Storage)
-    ├── Bronze Layer (iot_raw_telemetry_v2)
-    ├── Silver Layer (iot_telemetry_silver_v2)
-    └── Gold Layer (current_vehicle_state_v2, daily_fleet_summary_v2)
-    ↓
-Fabric Notebooks (PySpark Processing)
-    ↓
-Power BI (Direct Lake Integration)
-```
+<img src="images/azure-project3.png" width="70%">
+
+
+## Microsoft Fabric Architecture
+
+<img src="images/fabric-project3.png" width="70%">
 
 ## 🛠️ Technology Stack
 
@@ -69,7 +44,7 @@ Power BI (Direct Lake Integration)
 - **Delta Lake**: Reliable data storage format
 - **Apache Avro/Parquet**: Data serialization formats
 
-### Azure Traditional Stack
+### Azure Stack
 - **Azure IoT Hub**: Scalable telemetry ingestion
 - **Azure Data Lake Storage Gen2**: Multi-layer data storage
 - **Azure Databricks**: Managed Spark platform
@@ -124,7 +99,7 @@ vehicle_trends_analysis → Hourly patterns
 Power BI: Direct Lake access to Gold tables
 
 
-📊 Results and Dashboards
+### 📊 Results and Visualizations
 
 🔄 Fabric Dataflow
 
