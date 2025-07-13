@@ -120,7 +120,7 @@ simulated_interval_minutes = 180  # 3 hours per message
 ```bash
 # Build and run Docker container
 cd docker/
-docker build -t iot-fleet-simulator .
+docker build --no-cache -t iot-data-generator . 
 docker run -e IOTHUB_DEVICE_CONNECTION_STRING="your_connection_string" iot-fleet-simulator
 ```
 
