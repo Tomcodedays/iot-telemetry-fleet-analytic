@@ -1,7 +1,7 @@
 # 🚗 IoT Fleet Monitoring: Azure & Microsoft Fabric Data Pipeline
 
 ## ✨ Project Overview
-This comprehensive project demonstrates IoT telemetry data processing using **two different Microsoft cloud approaches**: traditional Azure services and the modern Microsoft Fabric platform. The solution simulates vehicle fleet telemetry data and processes it through a structured Medallion Architecture (Bronze, Silver, Gold layers), showcasing versatility across Microsoft's data ecosystem.
+This comprehensive project demonstrates IoT telemetry data processing using **two different Microsoft cloud approaches**: traditional Azure services and the modern Microsoft Fabric platform. The solution simulates vehicle fleet telemetry data and processes it through a structured Medallion Architecture (Bronze, Silver, Gold layers).
 
 **Key Differentiators:**
 - **Dual Platform Implementation**: Compare Azure traditional services vs. Microsoft Fabric
@@ -78,9 +78,9 @@ This project strategically demonstrates enterprise-level data engineering skills
   - vehicle_trends_analysis: Behavioral patterns by hour
 - **Features**: Window functions, percentiles, anomaly detection
 
-## ⚙️ IoT Data Simulator Configuration
+## ⚙️ IoT Data Simulator
 
-### Default Configuration
+### Configuration
 ```python
 num_vehicles = 20           # Fleet size
 days_to_simulate = 7        # Simulation period
@@ -88,12 +88,8 @@ real_time_duration = 3600   # 1 hour real-time execution
 simulated_interval_minutes = 180  # 3 hours per message
 ```
 
-
-
-Generated Telemetry Schema
-```
-json
-
+### Generated Telemetry Schema
+```json
 {
   "deviceId": "vehiculo_001",
   "timestamp": 1704110400000,
@@ -111,25 +107,22 @@ json
   "odometer_km": 45623.45
 }
 ```
-Vehicle Behavior Patterns
 
-- Urban Pattern: 10-60 km/h, 1000-3000 RPM
-- Highway Pattern: 80-120 km/h, 2500-4500 RPM
-- Mixed Pattern: 20-100 km/h, 1500-4000 RPM
-- Anomaly Generation: 5% probability of engine overheating (>120°C) 
-
+### Vehicle Behavior Patterns
+- **Urban Pattern**: 10-60 km/h, 1000-3000 RPM
+- **Highway Pattern**: 80-120 km/h, 2500-4500 RPM
+- **Mixed Pattern**: 20-100 km/h, 1500-4000 RPM
+- **Anomaly Generation**: 5% probability of engine overheating (>120°C)
 
 ## 🚀 Implementation Guide
 
-✅ Step 1: IoT Data Generation
-
+### Step 1: IoT Data Generation
 ```bash
 # Build and run Docker container
 cd docker/
 docker build -t iot-fleet-simulator .
 docker run -e IOTHUB_DEVICE_CONNECTION_STRING="your_connection_string" iot-fleet-simulator
 ```
-
 
 ### Azure Implementation
 1. **IoT Hub**: Device registration and connection string setup
@@ -139,40 +132,30 @@ docker run -e IOTHUB_DEVICE_CONNECTION_STRING="your_connection_string" iot-fleet
 3. **Data Lake**: Organize into Bronze/Silver/Gold containers
 4. **Power BI**: Connect via Azure connector
 
-### 🟣 Fabric Implementation
+### Microsoft Fabric Implementation
 1. **Eventstream**: Configure IoT Hub source
 2. **Lakehouse**:
-   Bronze: Auto-ingestion from Eventstream
-   Silver: Deploy streaming notebook (iot_data_processing_bronze_to_silver.ipynb)
-   Gold: Deploy aggregation notebook (02_Silver_to_Gold_IoT.ipynb)
+   - Bronze: Auto-ingestion from Eventstream
+   - Silver: Deploy streaming notebook (iot_data_processing_bronze_to_silver.ipynb)
+   - Gold: Deploy aggregation notebook (02_Silver_to_Gold_IoT.ipynb)
 3. **Power BI**: Connect via Direct Lake for instant access
 
+## 📊 Key Features & Capabilities
 
-### 📊 Analytics Capabilities
+### Technical Architecture
+- **End-to-End Medallion Architecture**: Bronze (raw) → Silver (cleaned) → Gold (enriched) data layers with Delta Lake
+- **Real-time & Batch Processing**: Streaming ingestion with anomaly detection + historical analytics
+- **Cloud-Native Design**: Containerized data generation, managed Spark, and secure credential handling
 
-**Real-time Monitoring**
-
-- Vehicle Status: Current location, speed, engine health
-- Fleet Overview: Active vehicles, alerts, performance metrics
-- Anomaly Detection: Engine temperature >90°C, Oil pressure <100kPa
-- Geospatial Tracking: Live vehicle positioning
-
-**Historical Analysis**
-
-- Trend Analysis: Speed patterns by hour of day
-- Performance Metrics: P95 engine temperature, fuel efficiency trends
-- Behavioral Insights: Urban vs highway driving patterns
-- Maintenance Predictions: Based on engine temperature and vibration
-
-**Business Intelligence**
-
-- KPIs: Average speed, fuel consumption, maintenance alerts
-- Dashboards: Real-time Power BI with DirectLake connectivity
-
+### Analytics & Monitoring
+- **Real-time Fleet Monitoring**: Live vehicle tracking, engine diagnostics, and geospatial positioning
+- **Anomaly Detection**: Automated alerts for engine temperature >90°C and oil pressure <100kPa
+- **Historical Analysis**: Speed patterns, performance trends, and behavioral insights
+- **Predictive Maintenance**: Based on engine temperature and vibration patterns
 
 ## 📊 Results and Visualizations
 
-### 🔄 Deployment Snapshots & Resources
+### Deployment Snapshots
 - **Azure Resource Group**
 <img src="images/resource-group.png" width="70%">
 
@@ -185,68 +168,48 @@ docker run -e IOTHUB_DEVICE_CONNECTION_STRING="your_connection_string" iot-fleet
 - **Fabric Eventstream**
 <img src="images/eventstream.png" width="70%">
 
-### 📈 Power BI Dashboards
+### Power BI Dashboards
 - **Fleet State**: Live engine, oil, location, velocity
 <img src="images/currentstate.png" width="70%">
 
 - **Daily Summary (Aggregates)**
 <img src="images/summary.png" width="70%">
 
-## 🧠 Business Use Cases
-- Real-time vehicle & fleet monitoring
-- Operational KPI dashboards
-- Foundation for anomaly detection and route optimization
+## 🚀 Business Impact & Future Enhancements
+
+### Business Use Cases
+- **Fleet Operations**: Real-time vehicle & fleet monitoring with operational KPI dashboards
+- **Cost Optimization**: Fleet utilization analytics and performance benchmarking
+- **Compliance & Reporting**: Automated compliance reporting and route optimization insights
+- **Foundation for AI**: Anomaly detection and predictive maintenance capabilities
+
+### Future Enhancements
+- **Machine Learning**: Predictive maintenance models with Azure ML/Fabric ML
+- **Advanced Analytics**: Automated scaling based on usage patterns
 
 ## 📁 Project Structure
 
+```
 iot-fleet-monitoring/
 ├── docker/
-│ ├── Dockerfile
-│ ├── requirements.txt
-│ └── iot_data_generator.py
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── iot_data_generator.py
 ├── azure-implementation/
-│ ├── notebooks/
-│ │ ├── 01_bronze_to_silver.py
-│ │ ├── 02_silver_to_gold.py
-│ │ └── 03_anomaly_detection.py
-│ └── config/
+│   ├── notebooks/
+│   │   ├── 01_bronze_to_silver.py
+│   │   ├── 02_silver_to_gold.py
+│   └── config/
 ├── fabric-implementation/
-│ └── notebooks/
-│ ├── 01_Bronze_to_Silver_IoT.ipynb
-│ └── 02_Silver_to_Gold_IoT.ipynb
+│   └── notebooks/
+│       ├── 01_Bronze_to_Silver_IoT.ipynb
+│       └── 02_Silver_to_Gold_IoT.ipynb
 └── README.md
+```
 
-## 🎯 Key Value Proposition
-
-### Technical Highlights
-- **End-to-End Medallion Architecture**: Bronze (raw) → Silver (cleaned) → Gold (enriched) data layers with Delta Lake
-- **Real-time & Batch Processing**: Streaming ingestion with anomaly detection + historical analytics
-- **Cloud-Native Design**: Containerized data generation, managed Spark, and secure credential handling
-
-### Business Impact
-**Fleet Operations:**
-- Live vehicle tracking and diagnostics
-- Predictive maintenance alerts
-- Route optimization insights
-- Automated compliance reporting
-
-**Business Intelligence:**
-- Unified dashboards (real-time + historical)
-- Fleet utilization analytics
-- Cost optimization metrics
-- Driver/vehicle performance benchmarking
-
-🚀 Future Enhancements
-
-- Machine Learning: Predictive maintenance models with Azure ML/Fabric ML
-- Cost Optimization: Automated scaling based on usage patterns
-
+---
 
 ## 📞 Contact & Support
-- **Project Maintainer**: [Your Name]
 - **Email**: [your.email@example.com]
 - **LinkedIn**: [Your LinkedIn Profile]
 - **Issues**: [GitHub Issues Page]
-
----
-*This project demonstrates real-world data engineering practices using Microsoft's cloud platforms. It's designed to showcase technical skills while solving practical business problems in IoT fleet management.*
