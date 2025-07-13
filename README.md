@@ -199,7 +199,6 @@ iot-fleet-monitoring/
 │   ├── notebooks/
 │   │   ├── 01_bronze_to_silver.py
 │   │   ├── 02_silver_to_gold.py
-│   └── config/
 ├── fabric-implementation/
 │   └── notebooks/
 │       ├── 01_Bronze_to_Silver_IoT.ipynb
