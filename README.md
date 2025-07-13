@@ -51,47 +51,43 @@ This project strategically demonstrates enterprise-level data engineering skills
 - **Microsoft Fabric Notebooks**: Integrated PySpark environment
 - **Power BI Direct Lake**: High-performance analytics
 
-📊 Data Pipeline Architecture
-Bronze Layer (Raw Ingestion)
+## 📊 Data Pipeline Architecture
 
-Source: IoT Hub Eventstream
-Format: JSON telemetry from 20 vehicles
-Frequency: Real-time streaming (~3.1 messages/second)
-Schema: Flexible JSON schema evolution
-Storage: iot_raw_telemetry_V2 table
+### Bronze Layer (Raw Ingestion)
+- **Source**: IoT Hub Eventstream
+- **Format**: JSON telemetry from 20 vehicles
+- **Frequency**: Real-time streaming (~3.1 messages/second)
+- **Schema**: Flexible JSON schema evolution
+- **Storage**: iot_raw_telemetry_V2 table
 
-Silver Layer (Cleaned & Structured)
+### Silver Layer (Cleaned & Structured)
+- **Processing**: PySpark streaming (1-minute triggers)
+- **Transformations**:
+  - Unix timestamp → DateTime conversion
+  - Schema validation and typing
+  - Data quality checks
+  - Partitioning by event_date
+- **Checkpoint**: Fault-tolerant streaming
+- **Storage**: iot_telemetry_silver_V2 table
 
-Processing: PySpark streaming (1-minute triggers)
-Transformations:
+### Gold Layer (Analytics-Ready)
+- **Processing**: Batch aggregations with advanced analytics
+- **Tables**:
+  - current_vehicle_state_V2: Real-time fleet status
+  - daily_fleet_summary_V2: Daily KPIs and metrics
+  - vehicle_trends_analysis: Behavioral patterns by hour
+- **Features**: Window functions, percentiles, anomaly detection
 
-Unix timestamp → DateTime conversion (from_unixtime(col("device_timestamp") / 1000))
-Schema validation and typing
-Data quality checks
-Partitioning by event_date
+## ⚙️ IoT Data Simulator Configuration
 
-
-Checkpoint: Fault-tolerant streaming with exactly-once processing
-Storage: iot_telemetry_silver_V2 table
-
-Gold Layer (Analytics-Ready)
-
-Processing: Batch aggregations with advanced analytics
-Tables:
-
-current_vehicle_state_V2: Real-time fleet status
-daily_fleet_summary_V2: Daily KPIs and metrics
-vehicle_trends_analysis: Behavioral patterns by hour
-
-
-Features: Window functions, percentiles, anomaly detection
-
-⚙️ IoT Data Simulator Configuration
-Default Configuration
-pythonnum_vehicles = 20              # Fleet size
-days_to_simulate = 7           # Simulation period
-real_time_duration = 3600      # 1 hour real-time execution
+### Default Configuration
+```python
+num_vehicles = 20           # Fleet size
+days_to_simulate = 7        # Simulation period
+real_time_duration = 3600   # 1 hour real-time execution
 simulated_interval_minutes = 180  # 3 hours per message
+```
+
 
 
 Generated Telemetry Schema
@@ -124,10 +120,12 @@ Anomaly Generation: 5% probability of engine overheating (>120°C)
 
 ✅ Step 1: IoT Data Generation
 
+```bash
 # Build and run Docker container
 cd docker/
 docker build -t iot-fleet-simulator .
 docker run -e IOTHUB_DEVICE_CONNECTION_STRING="your_connection_string" iot-fleet-simulator
+```
 
 
 ### Azure Implementation
@@ -239,8 +237,8 @@ iot-fleet-monitoring/
 
 🚀 Future Enhancements
 
-Machine Learning: Predictive maintenance models with Azure ML/Fabric ML
-Cost Optimization: Automated scaling based on usage patterns
+- Machine Learning: Predictive maintenance models with Azure ML/Fabric ML
+- Cost Optimization: Automated scaling based on usage patterns
 
 
 ## 📞 Contact & Support
