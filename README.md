@@ -78,40 +78,61 @@ Data Lake: Organize into Bronze/Silver/Gold containers
 Power BI: Connect via Azure connector or SQL endpoint
 
 
-🧪 Fabric Implementation
+🟣 Fabric Implementation
 
 Eventstream: Ingest from IoT Hub
 
 Lakehouse:
 
-Bronze Table: iot_raw_telemetry_v2
+Bronze: iot_raw_telemetry_v2
 
-Silver: Streaming notebook performs schema validation, partitioning, enrichment
+Silver: Streaming notebook applies schema validation, partitioning, enrichment
 
-Gold:
+Gold Tables:
 
-current_vehicle_state_v2 → Latest status
+current_vehicle_state_v2 → Latest vehicle status
 
 daily_fleet_summary_v2 → Daily KPIs
 
-vehicle_trends_analysis → Hourly patterns
+vehicle_trends_analysis → Hourly pattern insights
 
-Power BI: Direct Lake access to Gold tables
+Power BI: Connect via Direct Lake for instant access
 
 
 ### 📊 Results and Visualizations
 
-🔄 Fabric Dataflow
+🔄 Deployment Snapshots & Resources
 
-🥇 Gold Layer Views
+Azure Resource Group
 
-📈 Power BI Examples
+<img src="images/resource-group.png" width="70%">
 
-Fleet State: Live engine, oil, location view
+Microsoft Fabric Workspace
 
-Performance Summary: Daily aggregates
+<img src="images/workspace.png" width="70%">
 
-Trend Monitoring: Speed/fuel behavior by hour
+Microsoft Fabric Lakehouse Overview
+
+<img src="images/Lakehouse.png" width="70%">
+
+🥇 Fabric Eventstream
+
+<img src="images/eventstream.png" width="70%">
+
+📈 Power BI Dashboards
+
+Fleet State: Live engine, oil, location, velocity
+
+<img src="images/currentstate.png" width="70%">
+
+Daily Summary (Aggregates)
+
+<img src="images/summary.png" width="70%">
+
+
+
+
+
 
 🧠 Business Use Cases
 
@@ -126,7 +147,6 @@ Foundation for anomaly detection and route optimization
 
 ## 📁 Project Structure
 
-```
 iot-fleet-monitoring/
 ├── docker/
 │   ├── Dockerfile
@@ -143,7 +163,7 @@ iot-fleet-monitoring/
 │       ├── 01_Bronze_to_Silver_IoT.ipynb
 │       ├── 02_Silver_to_Gold_IoT.ipynb 
 └── README.md
-```
+
 
 ## 🎯 Key Features Demonstrated
 
