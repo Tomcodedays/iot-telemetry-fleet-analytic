@@ -51,11 +51,84 @@ This project strategically demonstrates enterprise-level data engineering skills
 - **Microsoft Fabric Notebooks**: Integrated PySpark environment
 - **Power BI Direct Lake**: High-performance analytics
 
+📊 Data Pipeline Architecture
+Bronze Layer (Raw Ingestion)
+
+Source: IoT Hub Eventstream
+Format: JSON telemetry from 20 vehicles
+Frequency: Real-time streaming (~3.1 messages/second)
+Schema: Flexible JSON schema evolution
+Storage: iot_raw_telemetry_V2 table
+
+Silver Layer (Cleaned & Structured)
+
+Processing: PySpark streaming (1-minute triggers)
+Transformations:
+
+Unix timestamp → DateTime conversion (from_unixtime(col("device_timestamp") / 1000))
+Schema validation and typing
+Data quality checks
+Partitioning by event_date
+
+
+Checkpoint: Fault-tolerant streaming with exactly-once processing
+Storage: iot_telemetry_silver_V2 table
+
+Gold Layer (Analytics-Ready)
+
+Processing: Batch aggregations with advanced analytics
+Tables:
+
+current_vehicle_state_V2: Real-time fleet status
+daily_fleet_summary_V2: Daily KPIs and metrics
+vehicle_trends_analysis: Behavioral patterns by hour
+
+
+Features: Window functions, percentiles, anomaly detection
+
+⚙️ IoT Data Simulator Configuration
+Default Configuration
+pythonnum_vehicles = 20              # Fleet size
+days_to_simulate = 7           # Simulation period
+real_time_duration = 3600      # 1 hour real-time execution
+simulated_interval_minutes = 180  # 3 hours per message
+
+
+Generated Telemetry Schema
+json{
+  "deviceId": "vehiculo_001",
+  "timestamp": 1704110400000,
+  "latitude": 40.7128,
+  "longitude": -74.0060,
+  "speed_kmh": 65.5,
+  "engine_temp_c": 89.2,
+  "vibration_level": 0.3,
+  "fuel_level_percent": 78.0,
+  "door_open": false,
+  "fuel_type": "Gasoline",
+  "battery_voltage": 13.2,
+  "oil_pressure_kpa": 320,
+  "engine_rpm": 2800,
+  "odometer_km": 45623.45
+}
+
+Vehicle Behavior Patterns
+
+Urban Pattern: 10-60 km/h, 1000-3000 RPM
+Highway Pattern: 80-120 km/h, 2500-4500 RPM
+Mixed Pattern: 20-100 km/h, 1500-4000 RPM
+Anomaly Generation: 5% probability of engine overheating (>120°C) 
+
+
 ## 🚀 Implementation Guide
 
-### ✅ Shared Step: Simulate IoT Data
-- Run iot_data_generator.py in Docker
-- Sends data to Azure IoT Hub
+✅ Step 1: IoT Data Generation
+
+# Build and run Docker container
+cd docker/
+docker build -t iot-fleet-simulator .
+docker run -e IOTHUB_DEVICE_CONNECTION_STRING="your_connection_string" iot-fleet-simulator
+
 
 ### Azure Implementation
 1. **IoT Hub**: Device registration and connection string setup
@@ -63,17 +136,37 @@ This project strategically demonstrates enterprise-level data engineering skills
    - 01_bronze_to_silver.py: Avro to cleaned Delta
    - 02_silver_to_gold.py: Aggregated tables (current_state, fleet_summary, trends)
 3. **Data Lake**: Organize into Bronze/Silver/Gold containers
-4. **Power BI**: Connect via Azure connector or SQL endpoint
+4. **Power BI**: Connect via Azure connector
 
 ### 🟣 Fabric Implementation
-1. **Eventstream**: Ingest from IoT Hub
+1. **Eventstream**: Configure IoT Hub source
 2. **Lakehouse**:
-   - Bronze: iot_raw_telemetry_v2
-   - Silver: Streaming notebook applies schema validation, partitioning, enrichment
-   - Gold Tables:
-     - current_vehicle_state_v2 → Latest vehicle status
-     - daily_fleet_summary_v2 → Daily KPIs
+   Bronze: Auto-ingestion from Eventstream
+   Silver: Deploy streaming notebook (iot_data_processing_bronze_to_silver.ipynb)
+   Gold: Deploy aggregation notebook (02_Silver_to_Gold_IoT.ipynb)
 3. **Power BI**: Connect via Direct Lake for instant access
+
+
+📊 Analytics Capabilities
+Real-time Monitoring
+
+Vehicle Status: Current location, speed, engine health
+Fleet Overview: Active vehicles, alerts, performance metrics
+Anomaly Detection: Engine temperature >90°C, Oil pressure <100kPa
+Geospatial Tracking: Live vehicle positioning
+
+Historical Analysis
+
+Trend Analysis: Speed patterns by hour of day
+Performance Metrics: P95 engine temperature, fuel efficiency trends
+Behavioral Insights: Urban vs highway driving patterns
+Maintenance Predictions: Based on engine temperature and vibration
+
+Business Intelligence
+
+KPIs: Average speed, fuel consumption, maintenance alerts
+Dashboards: Real-time Power BI with DirectLake connectivity
+
 
 ## 📊 Results and Visualizations
 
@@ -143,6 +236,12 @@ iot-fleet-monitoring/
 - Fleet utilization analytics
 - Cost optimization metrics
 - Driver/vehicle performance benchmarking
+
+🚀 Future Enhancements
+
+Machine Learning: Predictive maintenance models with Azure ML/Fabric ML
+Cost Optimization: Automated scaling based on usage patterns
+
 
 ## 📞 Contact & Support
 - **Project Maintainer**: [Your Name]
